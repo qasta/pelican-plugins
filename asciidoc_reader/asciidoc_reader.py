@@ -28,7 +28,7 @@ def fix_unicode(val):
     if sys.version_info < (3,0):
         val = unicode(val.decode("utf-8"))
     else:
-        # This fixes an issue with character substitutions, e.g. '�' to 'ñ'.
+        # This fixes an issue with character substitutions, e.g. '�' to 'ñ'.
         val = str.encode(val, "latin-1").decode("utf-8")
     return val
 
@@ -79,7 +79,7 @@ class AsciiDocReader(BaseReader):
                         metadata['title'] = self.process_metadata('title', fix_unicode(title))
 
                 # Parse for other metadata.
-                regexp = re.compile(r"^:[A-z]+:\s*[A-z0-9]")
+                regexp = re.compile(r"^:[A-z]+:\s*[A-zА-я0-9]")
                 if regexp.search(line):
                     toks = line.split(":", 2)
                     key = toks[1].strip().lower()
